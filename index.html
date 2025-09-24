@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="gambar/logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="gambar/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envelope with picture</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f0e0;
+            margin: 0;
+            min-height: 100vh;
+            transition: background-color 0.5s;
+        }
+        
+        .container {
+            text-align: center;
+            position: relative;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .envelope {
+            width: 300px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+            margin-top: 50px;
+        }
+        
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+        
+        .letter-paper {
+            background-image: url('bg1.jpeg');
+            background-size: 100%;
+            display: none;
+            background-color: #fff9e6;
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            border: 1px solid #e0d6b8;
+            animation: paperAppear 1s forwards;
+        }
+        
+        .letter-content {
+            text-align: left;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .letter-content h1 {
+            color: #d23669;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .signature {
+            text-align: right;
+            font-style: italic;
+            margin-top: 30px;
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        @keyframes paperAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes envelopeOpen {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(30px);
+            }
+            100% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 15px;
+            width: 100%;
+        }
+        
+        .gallery-title {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .masonry-gallery {
+            column-count: 1;
+            column-gap: 15px;
+        }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .masonry-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .masonry-item img {
+            width: 100%;
+            display: block;
+        }
+        
+        .masonry-caption {
+            background: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Tablet Styles */
+        @media (max-width: 900px) {
+            .masonry-gallery {
+                column-count: 1;
+            }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 600px) {
+            .gallery-container {
+                margin-top: 30px;
+                padding: 0;
+            }
+            
+            .gallery-title {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .masonry-gallery {
+                column-count: 1;
+                column-gap: 10px;
+            }
+            
+            .masonry-item {
+                margin-bottom: 10px;
+                border-radius: 6px;
+            }
+            
+            .masonry-caption {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+            
+            .letter-paper {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="close.png" alt="Amplop Tertutup" class="envelope" id="closedEnvelope">
+        
+        <div class="letter-paper" id="letterPaper">
+            <div class="letter-content"> 
+                <h1>Happy graduation, sayang.</h1> 
+                <p>Ngga bisa berkata banyak aku, intinya aku bangga atas pencapaian yang kamu dapatkan sekarang. Semua jerih payah yang kamu lakuin hingga kamu dapat titel yang ga semua orang bisa. Aku disini hanya bisa support sampai kamu berhasil. Semoga kita tetap terus bersama hingga ke jenjang lebih sempurna. I love u </p>
+                <div class="signature">
+                    <p>With all my love❤️, Falah </p>
+                </div>
+            </div>
+
+            <div class="gallery-container">
+                <div class="masonry-gallery">
+                    <div class="masonry-item">
+                        <img src="foto1.jpeg" alt="Art 4"> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="music-control" id="musicControl" title="Putar/Mute Musik">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d23669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+    </div>
+    
+    <audio id="bgMusic" loop>
+        <source src="tdw.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+    
+    <script>
+        const closedEnvelope = document.getElementById('closedEnvelope');
+        const letterPaper = document.getElementById('letterPaper');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let musicPlaying = false;
+        
+        // Buka amplop saat diklik
+        closedEnvelope.addEventListener('click', function() {
+            // Ganti gambar amplop tertutup dengan yang terbuka
+            const openedEnvelope = new Image();
+            openedEnvelope.src = "open.png";
+            openedEnvelope.className = "envelope";
+            openedEnvelope.style.animation = "envelopeOpen 1s forwards";
+            
+            // Ganti amplop tertutup dengan yang terbuka
+            closedEnvelope.parentNode.replaceChild(openedEnvelope, closedEnvelope);
+            
+            // Setelah animasi amplop selesai, tampilkan surat
+            setTimeout(() => {
+                // Hapus amplop terbuka
+                openedEnvelope.remove();
+                
+                // Tampilkan kertas surat
+                letterPaper.style.display = 'block';
+                
+                // Ubah background
+                document.body.style.backgroundColor = '#f5e5c0';
+                
+                // Mulai memutar musik
+                bgMusic.play();
+                musicPlaying = true;
+                
+                // Buat efek confetti
+                createConfetti();
+            }, 1200);
+        });
+        
+        // Kontrol musik
+        musicControl.addEventListener('click', function() {
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicPlaying = false;
+                musicControl.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d23669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                `;
+            } else {
+                bgMusic.play();
+                musicPlaying = true;
+                musicControl.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d23669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                `;
+            }
+        });
+        
+        // Fungsi untuk membuat confetti
+        function createConfetti() {
+            const colors = [
+                '#f44336', '#e91e63', '#9c27b0', '#673ab7', 
+                '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', 
+                '#009688', '#4CAF50', '#8BC34A', '#CDDC39', 
+                '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'
+            ];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                
+                document.body.appendChild(confetti);
+                
+                // Animasi confetti
+                setTimeout(() => {
+                    confetti.style.opacity = '1';
+                    confetti.style.transition = 'top 4s linear';
+                    confetti.style.top = '100vh';
+                    
+                    // Hapus confetti setelah animasi selesai
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
